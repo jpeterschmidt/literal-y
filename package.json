@@ -1,0 +1,26 @@
+{
+  "name": "literal-y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpeterschmidt/literal-y.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpeterschmidt/literal-y/issues"
+  },
+  "homepage": "https://github.com/jpeterschmidt/literal-y#readme",
+  "dependencies": {
+    "dictionary-en": "^3.2.0",
+    "natural": "^5.2.2",
+    "thousand-most-common-words": "^1.0.1",
+    "wordnet-db": "^3.1.14",
+    "wordpos": "^2.1.0"
+  }
+}
