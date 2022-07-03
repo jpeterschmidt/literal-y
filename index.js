@@ -2,18 +2,19 @@ const path = require('path')
 const fs = require('fs')
 const natural = require('natural')
 const WordPOS = require('wordpos')
+const { getWordsByLanguageCode } = require('thousand-most-common-words')
+const { customExcludedTokens } = require('./literature/excludedTokens')
+
 const sentenceTokenizer = new natural.SentenceTokenizer()
 const wordTokenizer = new natural.WordPunctTokenizer()
-const mostCommonWords = require('thousand-most-common-words').getWordsByLanguageCode('en').map(word => word.englishWord.toLowerCase())
-const { customExcludedTokens } = require('./literature/excludedTokens')
-const stemmer = natural.LancasterStemmer
 const wordPOS = new WordPOS()
-const TfIdf = natural.TfIdf
-const tfidf = new TfIdf()
+const mostCommonWords = getWordsByLanguageCode('en').map(word => word.englishWord.toLowerCase())
+
+const literaturePath = path.join(__dirname, 'literature')
+
 const allWords = {}
 const sentenceLengths = []
 const notWordTokens = {}
-const literaturePath = path.join(__dirname, 'literature')
 const HAS_LETTERS_REGEX = /\w/
 
 async function literally() {
@@ -107,8 +108,8 @@ async function processAndPrintResults() {
         console.log(`   ${index + 1}. "${word}", ${count} times`)
     })
 
-    console.log('Average sentence length: ', Math.round(avgSentenceLength), ' words')
-    console.log('Total comma-to-period ratio: ', commaToPeriodRatio[0], 'commas to ', commaToPeriodRatio[1], ' periods')
+    console.log('Average sentence length:', Math.round(avgSentenceLength), 'words')
+    console.log('Total comma-to-period ratio:', commaToPeriodRatio[0], 'commas to', commaToPeriodRatio[1], 'periods (', (notWordTokens[','] / notWordTokens['.']).toFixed(3), ')')
 }
 
 literally()
